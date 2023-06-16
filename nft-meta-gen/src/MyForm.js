@@ -106,13 +106,6 @@ const MyForm = () => {
             const hash = SHA256(jsonStr).toString();
             setSha256(hash);
             fetchCurrentSha();
-            setLocation('');
-            setDate('');
-            setTime('');
-            setNoHumanRightsViolation(false);
-            setNoChildLabor(false);
-            setCo2Footprint('');
-            setAddress('');
 
 
             const receipt = await contract.methods.safeMint(address, response.data.content.download_url).send({ from: window.ethereum.selectedAddress });
