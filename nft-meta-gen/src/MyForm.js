@@ -22,7 +22,7 @@ const MyForm = () => {
     const octokit = new Octokit({ auth: process.env.REACT_APP_GITHUB_TOKEN });
     const repoOwner = 'niranjangirhe';
     const repoName = 'NFT-Metadata-Generator';
-    const filePath = 'metadata/';
+    const filePath = 'contents/';
     const [jsonData, setJsonData] = useState(null);
     const [rawUrl, setRawUrl] = useState('');
     const [sha256, setSha256] = useState('');
@@ -63,7 +63,7 @@ const MyForm = () => {
             const response = await octokit.repos.getContent({
                 owner: repoOwner,
                 repo: repoName,
-                path: 'nft-meta-gen/package.json',
+                path: filePath+'data'+gettime+'.json',
             });
 
             setCurrentSha(response.data.sha);
@@ -93,7 +93,7 @@ const MyForm = () => {
             const response = await octokit.repos.createOrUpdateFileContents({
                 owner: repoOwner,
                 repo: repoName,
-                path: filePath + 'data' + gettime + '.json',
+                path: filePath+'data'+gettime+'.json',
                 message: 'Add form data',
                 content: btoa(JSON.stringify(formData, null, 2)),
                 sha: currentSha,
