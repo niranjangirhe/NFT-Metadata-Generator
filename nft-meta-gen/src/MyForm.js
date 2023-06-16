@@ -19,10 +19,10 @@ const MyForm = () => {
     const [noChildLabor, setNoChildLabor] = useState(false);
     const [co2Footprint, setCo2Footprint] = useState('');
     const [currentSha, setCurrentSha] = useState('');
-    const octokit = new Octokit({ auth: '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' });
+    const octokit = new Octokit({ auth: process.env.REACT_APP_GITHUB_TOKEN });
     const repoOwner = 'niranjangirhe';
     const repoName = 'NFT-Metadata-Generator';
-    const filePath = 'contents/';
+    const filePath = 'metadata/';
     const [jsonData, setJsonData] = useState(null);
     const [rawUrl, setRawUrl] = useState('');
     const [sha256, setSha256] = useState('');
@@ -63,7 +63,7 @@ const MyForm = () => {
             const response = await octokit.repos.getContent({
                 owner: repoOwner,
                 repo: repoName,
-                path: filePath + 'data' + gettime + '.json',
+                path: 'nft-meta-gen/package.json',
             });
 
             setCurrentSha(response.data.sha);
@@ -140,6 +140,9 @@ const MyForm = () => {
             <h1 className="title">NFT Metadata Generator</h1>
             <p className="description">Fill out the form below to generate NFT metadata.</p>
             <p className="description">The metadata will be stored in a GitHub repo and minted as an NFT.</p>
+            <div>
+                <p>More at GitHub <a href='https://github.com/niranjangirhe/NFT-Metadata-Generator.git'>link</a></p>
+            </div>
             <button className='button' onClick={() => handleConnect()}>{connectionStatus ? 'Connected' : 'Connect to metamask'}</button>
             <form onSubmit={handleSubmit} className="form-container">
                 <div className="form-row">
